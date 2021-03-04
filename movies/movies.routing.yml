@@ -1,0 +1,7 @@
+movies.movie_form:
+  path: '/movie/upload'
+  defaults:
+    _form: 'Drupal\movies\Form\MovieForm'
+    _title: 'Movie Upload Form'
+  requirements:
+    _permission: 'access content'

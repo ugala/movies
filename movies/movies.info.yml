@@ -1,0 +1,6 @@
+name: Movie
+description: This module exports data from csv and creates movie nodes
+package: Custom
+type: module
+version: 1.0
+core: 8.x
