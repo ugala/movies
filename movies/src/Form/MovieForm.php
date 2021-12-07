@@ -103,7 +103,7 @@ class MovieForm extends FormBase {
    * 
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
-    $file_id = $form_state->getValue('file_upload');
+    $file_id = $form_state->getValue('file_upload')[0];
 
     try {
       $validate = $this->movie->validate($file_id);
@@ -125,7 +125,7 @@ class MovieForm extends FormBase {
    *   The current state of the form.
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $file_id = $form_state->getValue('file_upload');
+    $file_id = $form_state->getValue('file_upload')[0];
     $submit = $this->movie->saveMovies($file_id, $form['header']['#value']);
     drupal_set_message('File Uploaded');
   } 
