@@ -64,15 +64,15 @@ class MovieForm extends FormBase {
         'file_validate_extensions' => array('csv'),
     );
 
-      $form['file_upload'] = array(
-        '#type' => 'managed_file',
-        '#name' => 'file_upload',
-        '#title' => t('File *'),
-        '#size' => 20,
-        '#description' => t('Upload CSV for movies'),
-        '#upload_validators' => $validators,
-        '#upload_location' => 'public://my_files/',
-      );
+    $form['file_upload'] = array(
+      '#type' => 'managed_file',
+      '#name' => 'file_upload',
+      '#title' => t('File *'),
+      '#size' => 20,
+      '#description' => t('Upload CSV for movies'),
+      '#upload_validators' => $validators,
+      '#upload_location' => 'public://my_files/',
+    );
 
     $form['header'] = array(
       '#type' => 'checkbox',
@@ -103,7 +103,8 @@ class MovieForm extends FormBase {
    * 
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
-    $file_id = $form['file_upload']['#value']['fids']['0'];
+    $file_id = $form_state->getValue('file_upload');
+
     try {
       $validate = $this->movie->validate($file_id);
       if ($validate == FALSE) {
@@ -124,9 +125,8 @@ class MovieForm extends FormBase {
    *   The current state of the form.
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $file_id = $form['file_upload']['#value']['fids']['0'];
+    $file_id = $form_state->getValue('file_upload');
     $submit = $this->movie->saveMovies($file_id, $form['header']['#value']);
     drupal_set_message('File Uploaded');
   } 
-
 }
